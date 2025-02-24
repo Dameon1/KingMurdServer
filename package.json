@@ -9,9 +9,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "proxy": "http://localhost:5000",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.36.3",
     "@google/generative-ai": "^0.22.0",
     "@langchain/anthropic": "^0.3.13",
     "@langchain/core": "^0.3.40",

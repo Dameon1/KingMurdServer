@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { OpenAI } = require('@langchain/openai');
-//const { ChatAnthropic } = require('@langchain/anthropic'); // Updated import
+const { Anthropic } = require('@langchain/anthropic');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Initialize AI models
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-//const claude = new ChatAnthropic({ apiKey: process.env.CLAUDE_API_KEY }); // Updated constructor
+//const claude = new Anthropic({ apiKey: process.env.CLAUDE_API_KEY });
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY).getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 // Debate logic
@@ -29,7 +29,7 @@ async function runDebate(topic, rounds = 3, agents = [
         const result = await agent.model.generateContent(prompt);
         response = result.response.text();
       } else {
-        response = await agent.model.invoke(prompt); // Works for both OpenAI and ChatAnthropic
+        response = await agent.model.invoke(prompt);
       }
       debateLog += `${agent.name} (${agent.stance}): ${response}\n\n`;
     }
@@ -40,7 +40,6 @@ async function runDebate(topic, rounds = 3, agents = [
 // API endpoint
 app.post('/api/debate', async (req, res) => {
   const { topic, rounds, agents } = req.body;
-  console.log('Debate request:', req.body);
   try {
     const debateLog = await runDebate(
       topic,
