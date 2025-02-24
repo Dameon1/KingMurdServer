@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { OpenAI } = require('@langchain/openai');
-const { ChatAnthropic } = require('@langchain/anthropic'); // Updated import
+//const { ChatAnthropic } = require('@langchain/anthropic'); // Updated import
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Initialize AI models
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const claude = new ChatAnthropic({ apiKey: process.env.CLAUDE_API_KEY }); // Updated constructor
+//const claude = new ChatAnthropic({ apiKey: process.env.CLAUDE_API_KEY }); // Updated constructor
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY).getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 // Debate logic
